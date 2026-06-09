@@ -1,0 +1,420 @@
+/* =====================================================
+   ARES — Login & Register
+   Reusa la paleta y vocabulario visual del dashboard
+   (definidos como variables en EstilosAres.css):
+     --bg-deep, --bg-panel, --line, --line-strong,
+     --cyan, --cyan-soft, --white, --txt-dim, --txt-mute
+===================================================== */
+
+.login-body {
+    background: var(--bg-deep, #02050a);
+    color: var(--white, #fff);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    overflow: auto;
+}
+
+/* En el dashboard body tiene overflow: hidden. En el login lo
+   queremos scrolleable cuando el formulario crece (registro). */
+.login-body { overflow: auto !important; }
+
+.auth-shell {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 480px;
+}
+
+/* =============== BRAND =============== */
+.auth-brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-bottom: 22px;
+}
+
+.auth-brand-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.auth-brand-text .brand-letter {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 26px;
+    color: var(--cyan, #00b4ff);
+    letter-spacing: 6px;
+    text-shadow: 0 0 18px rgba(0, 180, 255, 0.55);
+    line-height: 1;
+}
+
+.brand-tagline {
+    font-size: 9.5px;
+    letter-spacing: 2.5px;
+    color: var(--txt-dim, rgba(255, 255, 255, 0.55));
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+/* Mini-core animado al lado del logo (eco del core central del dashboard) */
+.auth-brand-rings {
+    position: relative;
+    width: 54px;
+    height: 54px;
+    flex-shrink: 0;
+}
+
+.ring-mini {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1px solid var(--cyan, #00b4ff);
+    box-shadow: inset 0 0 14px rgba(0, 180, 255, 0.12),
+                0 0 14px rgba(0, 180, 255, 0.18);
+}
+
+.ring-mini.outer {
+    border-style: dashed;
+    opacity: 0.45;
+    animation: spinMini 18s linear infinite;
+}
+
+.ring-mini.inner {
+    inset: 9px;
+    opacity: 0.75;
+    animation: spinMini 9s linear infinite reverse;
+}
+
+.core-mini {
+    position: absolute;
+    inset: 18px;
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 35% 35%,
+            rgba(0, 180, 255, 0.55),
+            rgba(0, 50, 100, 0.45) 60%,
+            rgba(0, 0, 0, 0.85) 100%);
+    box-shadow:
+        inset 0 0 14px rgba(0, 0, 0, 0.6),
+        inset 0 0 8px rgba(0, 180, 255, 0.4),
+        0 0 22px rgba(0, 180, 255, 0.35);
+}
+
+@keyframes spinMini {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+/* =============== CARD =============== */
+/* La carta del login se comporta como un widget grande del dashboard. */
+.auth-card.widget {
+    background: rgba(10, 14, 22, 0.78);
+    border: 1px solid var(--line, rgba(0, 180, 255, 0.12));
+    border-radius: 14px;
+    overflow: hidden;
+    backdrop-filter: blur(14px) saturate(160%);
+    -webkit-backdrop-filter: blur(14px) saturate(160%);
+}
+
+.auth-card-header {
+    /* widget-header ya viene de EstilosAres.css */
+    justify-content: space-between;
+}
+
+.auth-card-header h3 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--cyan, #00b4ff);
+    letter-spacing: 0.4px;
+}
+
+.auth-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 10px;
+    background: rgba(0, 220, 90, 0.10);
+    border: 1px solid rgba(0, 220, 90, 0.30);
+    border-radius: 12px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    color: #4ee78a;
+}
+
+/* =============== TABS =============== */
+.auth-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--line, rgba(0, 180, 255, 0.12));
+    background: rgba(0, 0, 0, 0.20);
+}
+
+.auth-tabs .tab {
+    flex: 1;
+    padding: 14px 0;
+    background: transparent;
+    color: var(--txt-dim, rgba(255, 255, 255, 0.5));
+    border: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: color 0.2s, background 0.2s;
+    position: relative;
+}
+
+.auth-tabs .tab:hover {
+    color: var(--cyan-soft, #4cd0ff);
+    background: rgba(0, 180, 255, 0.04);
+}
+
+.auth-tabs .tab.active {
+    color: var(--cyan, #00b4ff);
+    background: rgba(0, 180, 255, 0.06);
+    text-shadow: 0 0 12px rgba(0, 180, 255, 0.4);
+}
+
+.auth-tabs .tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 25%;
+    right: 25%;
+    height: 2px;
+    background: linear-gradient(90deg,
+        transparent, var(--cyan, #00b4ff), transparent);
+    box-shadow: 0 0 10px var(--cyan, #00b4ff);
+}
+
+/* =============== FORM =============== */
+.auth-form {
+    display: none;
+    flex-direction: column;
+    gap: 12px;
+    padding: 22px 22px 22px;
+}
+
+.auth-form.active { display: flex; }
+
+.auth-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9.5px;
+    letter-spacing: 1.6px;
+    color: var(--txt-mute, rgba(255, 255, 255, 0.45));
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.auth-form input[type="text"],
+.auth-form input[type="password"],
+.auth-form select {
+    background: rgba(0, 0, 0, 0.40);
+    border: 1px solid var(--line, rgba(0, 180, 255, 0.12));
+    border-radius: 10px;
+    padding: 11px 14px;
+    color: var(--white, #fff);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13.5px;
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+.auth-form input::placeholder {
+    color: var(--txt-mute, rgba(255, 255, 255, 0.30));
+    font-weight: 400;
+    letter-spacing: 0;
+}
+
+.auth-form input:hover,
+.auth-form select:hover {
+    border-color: var(--line-strong, rgba(0, 180, 255, 0.30));
+}
+
+.auth-form input:focus,
+.auth-form select:focus {
+    outline: 0;
+    border-color: var(--cyan, #00b4ff);
+    box-shadow: 0 0 0 3px rgba(0, 180, 255, 0.15),
+                0 0 18px rgba(0, 180, 255, 0.18);
+    background: rgba(0, 180, 255, 0.04);
+}
+
+.auth-form select {
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2300b4ff' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
+}
+
+.auth-form select option {
+    background: #0a0e16;
+    color: #fff;
+}
+
+/* =============== BUTTON =============== */
+/* Reusa .auth-btn de EstilosAres.css y solo cambia el degradé a cyan */
+.auth-btn-primary {
+    margin-top: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: linear-gradient(135deg, var(--cyan, #00b4ff), #006bb8);
+    color: #fff;
+    box-shadow: 0 0 22px rgba(0, 180, 255, 0.45);
+    border: 0;
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
+}
+
+.auth-btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg,
+        transparent 30%,
+        rgba(255, 255, 255, 0.18) 50%,
+        transparent 70%);
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+}
+
+.auth-btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0 30px rgba(0, 180, 255, 0.7);
+}
+
+.auth-btn-primary:hover::before { transform: translateX(100%); }
+
+.auth-btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: 0 0 12px rgba(0, 180, 255, 0.20);
+}
+
+.auth-btn-primary svg {
+    flex-shrink: 0;
+    transition: transform 0.2s;
+}
+
+.auth-btn-primary:hover svg {
+    transform: translateX(3px);
+}
+
+/* =============== MESSAGES =============== */
+.auth-msg {
+    margin-top: 4px;
+    font-size: 12px;
+    text-align: center;
+    min-height: 16px;
+    color: var(--txt-dim, rgba(255, 255, 255, 0.65));
+    font-weight: 500;
+}
+
+.auth-msg.error {
+    color: #ff7373;
+    text-shadow: 0 0 8px rgba(255, 0, 0, 0.3);
+}
+
+.auth-msg.ok {
+    color: var(--cyan-soft, #4cd0ff);
+    text-shadow: 0 0 8px rgba(0, 180, 255, 0.4);
+}
+
+.auth-footer {
+    margin-top: 18px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--txt-mute, rgba(255, 255, 255, 0.40));
+    letter-spacing: 0.3px;
+}
+
+/* =============== POLICY =============== */
+.policy-box {
+    background: rgba(0, 0, 0, 0.45);
+    border: 1px solid var(--line-strong, rgba(0, 180, 255, 0.30));
+    border-radius: 10px;
+    padding: 14px;
+    margin-top: 6px;
+    box-shadow: inset 0 0 18px rgba(0, 180, 255, 0.05);
+}
+
+.policy-box h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--cyan, #00b4ff);
+    margin-bottom: 8px;
+    font-weight: 800;
+    text-shadow: 0 0 8px rgba(0, 180, 255, 0.4);
+}
+
+.policy-box pre {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 11.5px;
+    color: rgba(255, 255, 255, 0.65);
+    white-space: pre-wrap;
+    max-height: 130px;
+    overflow-y: auto;
+    padding-right: 6px;
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+.policy-box pre::-webkit-scrollbar { width: 4px; }
+.policy-box pre::-webkit-scrollbar-thumb {
+    background: var(--line-strong, rgba(0, 180, 255, 0.30));
+    border-radius: 2px;
+}
+
+.policy-check {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+    font-size: 12px !important;
+    color: rgba(255, 255, 255, 0.85) !important;
+    font-weight: 500 !important;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    padding: 6px 8px;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+
+.policy-check:hover {
+    background: rgba(0, 180, 255, 0.06);
+}
+
+.policy-check input {
+    margin-top: 2px;
+    accent-color: var(--cyan, #00b4ff);
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
+
+/* =============== RESPONSIVE =============== */
+@media (max-width: 540px) {
+    .auth-shell { max-width: 100%; }
+    .auth-form  { padding: 18px; }
+    .auth-brand-text .brand-letter { font-size: 22px; letter-spacing: 4px; }
+}

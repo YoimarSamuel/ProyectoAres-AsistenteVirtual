@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A.R.E.S — Iniciar sesión</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="EstilosAres.css">
+    <link rel="stylesheet" href="EstilosLogin.css">
+</head>
+<body class="login-body">
+
+    <!-- Mismo ambient bg que el dashboard -->
+    <div class="ambient-bg">
+        <div class="grid-overlay"></div>
+        <div class="orb orb-blue"></div>
+        <div class="scanline"></div>
+    </div>
+
+    <div class="auth-shell">
+
+        <!-- Brand idéntica a la del topbar -->
+        <div class="auth-brand">
+            <div class="auth-brand-rings" aria-hidden="true">
+                <span class="ring-mini outer"></span>
+                <span class="ring-mini inner"></span>
+                <span class="core-mini"></span>
+            </div>
+            <div class="auth-brand-text">
+                <span class="brand-letter">A.R.E.S</span>
+                <span class="brand-tagline">Senior AI Architecture · v3.0</span>
+            </div>
+        </div>
+
+        <!-- Card glass como un widget grande -->
+        <div class="auth-card widget">
+            <header class="widget-header auth-card-header">
+                <span class="w-icon">⌬</span>
+                <h3 id="authTitle">ACCESO</h3>
+                <span class="auth-status">
+                    <span class="dot-pulse"></span>
+                    <span>Online</span>
+                </span>
+            </header>
+
+            <!-- Tabs -->
+            <div class="auth-tabs">
+                <button class="tab active" data-tab="login">INICIAR SESIÓN</button>
+                <button class="tab" data-tab="register">REGISTRARSE</button>
+            </div>
+
+            <!-- LOGIN -->
+            <form id="formLogin" class="auth-form active">
+                <label>Usuario
+                    <input type="text" id="loginUser" required autocomplete="username" placeholder="tu_usuario">
+                </label>
+                <label>Contraseña
+                    <input type="password" id="loginPass" required autocomplete="current-password" placeholder="••••••••">
+                </label>
+                <button type="submit" class="auth-btn auth-btn-primary">
+                    <span>ENTRAR</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <line x1="5" y1="12" x2="19" y2="12"/>
+                        <polyline points="12 5 19 12 12 19"/>
+                    </svg>
+                </button>
+                <p class="auth-msg" id="loginMsg"></p>
+            </form>
+
+            <!-- REGISTER -->
+            <form id="formRegister" class="auth-form">
+                <label>Nombre real
+                    <input type="text" id="regName" required placeholder="Como te llamas">
+                </label>
+                <label>Usuario
+                    <input type="text" id="regUser" required placeholder="usuario_unico">
+                </label>
+                <label>Contraseña
+                    <input type="password" id="regPass" required minlength="6" placeholder="mínimo 6 caracteres">
+                </label>
+                <label>Tono de respuesta
+                    <select id="regTono">
+                        <option value="balanceado">Balanceado (default)</option>
+                        <option value="tranquilo">Tranquilo</option>
+                        <option value="analitico">Analítico</option>
+                        <option value="directo">Directo / corto</option>
+                    </select>
+                </label>
+
+                <div class="policy-box">
+                    <h3>POLÍTICA DE PRIVACIDAD Y CONSENTIMIENTO</h3>
+                    <pre id="policyText">Cargando…</pre>
+                    <label class="policy-check">
+                        <input type="checkbox" id="acceptPolicy" required>
+                        <span>He leído y acepto. Autorizo cámara, micrófono y control total del PC.</span>
+                    </label>
+                </div>
+
+                <button type="submit" class="auth-btn auth-btn-primary">
+                    <span>CREAR CUENTA</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path d="M12 5v14M5 12h14"/>
+                    </svg>
+                </button>
+                <p class="auth-msg" id="regMsg"></p>
+            </form>
+        </div>
+
+        <p class="auth-footer">
+            ARES es 100% gratuito · puedes apoyar el proyecto con donaciones después del registro.
+        </p>
+    </div>
+
+    <script src="login.js"></script>
+</body>
+</html>

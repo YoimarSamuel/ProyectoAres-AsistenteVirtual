@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A.R.E.S</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="EstilosAres.css">
+</head>
+<body class="dashboard-body">
+
+    <!-- ===================== AMBIENT BACKGROUND ===================== -->
+    <div class="ambient-bg">
+        <div class="grid-overlay"></div>
+        <div class="orb orb-blue"></div>
+        <div class="scanline"></div>
+    </div>
+
+    <!-- ===================== TOP BAR ===================== -->
+    <header class="topbar">
+        <div class="topbar-brand">
+            <span class="brand-letter">A.R.E.S</span>
+        </div>
+        <div class="topbar-clock">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            <span id="clockTime">00:00:00</span>
+            <span class="bar">|</span>
+            <span id="clockDate">—</span>
+        </div>
+        <div class="topbar-actions">
+            <button class="topbar-btn" id="btnDonar" title="Apoyar a ARES">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                Donar
+            </button>
+            <div class="weather-pill" id="topWeather">
+                <span>—°C</span>
+                <span class="city">—</span>
+            </div>
+            <div class="user-pill" id="userPill">
+                <span class="user-name">…</span>
+                <button class="logout-btn" id="btnLogout" title="Cerrar sesión">⏻</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===================== MAIN GRID ===================== -->
+    <main class="dashboard-grid">
+
+        <!-- ============== LEFT COLUMN ============== -->
+        <aside class="dash-col-left">
+
+            <!-- System Stats -->
+            <section class="widget">
+                <header class="widget-header">
+                    <span class="w-icon"></span>
+                    <h3>Estado del sistema</h3>
+                    <button class="w-refresh" data-refresh="sistema">↻</button>
+                </header>
+                <div class="widget-body">
+                    <div class="bar-row">
+                        <div class="bar-label">
+                            <span>Uso CPU</span>
+                            <span id="cpuPct">0%</span>
+                        </div>
+                        <div class="bar-track"><div class="bar-fill" id="cpuBar"></div></div>
+                    </div>
+                    <div class="bar-row">
+                        <div class="bar-label">
+                            <span>Uso RAM</span>
+                            <span id="ramPct">0%</span>
+                        </div>
+                        <div class="bar-track"><div class="bar-fill" id="ramBar"></div></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Weather -->
+            <section class="widget">
+                <header class="widget-header">
+                    <span class="w-icon"></span>
+                    <h3>Clima</h3>
+                    <button class="w-refresh" data-refresh="clima">↻</button>
+                </header>
+                <div class="widget-body weather-body">
+                    <div>
+                        <div class="weather-temp" id="weatherTemp">—°C</div>
+                        <div class="weather-loc" id="weatherLoc">—</div>
+                        <div class="weather-desc" id="weatherDesc">—</div>
+                    </div>
+                    <div class="weather-icon" id="weatherIcon"></div>
+                </div>
+            </section>
+
+            <!-- Camera -->
+            <section class="widget">
+                <header class="widget-header">
+                    <span class="w-icon"></span>
+                    <h3>Camara</h3>
+                    <button class="w-refresh" id="btnCamToggle">⏻</button>
+                </header>
+                <div class="widget-body cam-body">
+                    <img id="camStream" alt="Camera"
+                         src=""
+                         onerror="this.style.display='none'">
+                    <div class="cam-overlay" id="camOverlay">
+                        <div class="cam-icon"></div>
+                        <div>Camara apagada</div>
+                    </div>
+                    <div class="cam-tags" id="camTags"></div>
+                </div>
+                <div class="widget-footer cam-footer">
+                    Analisis de camara · Aprende del entorno
+                </div>
+            </section>
+
+            <!-- System Uptime -->
+            <section class="widget">
+                <header class="widget-header">
+                    <span class="w-icon"></span>
+                    <h3>tiempo de actividad</h3>
+                    <span class="w-mini" id="uptimeMini">00:00:00</span>
+                </header>
+                <div class="widget-body">
+                    <div class="uptime-line">
+                        <span>Sistema en funcionamiento: </span>
+                        <span class="uptime-big" id="uptimeBig">00:00:00</span>
+                    </div>
+                    <div class="stat-grid stat-grid-2">
+                        <div class="stat-cell">
+                            <div class="cell-label">Sesión</div>
+                            <div class="cell-value" id="upSession">1</div>
+                        </div>
+                        <div class="stat-cell">
+                            <div class="cell-label">Comandos</div>
+                            <div class="cell-value" id="upCommands">0</div>
+                        </div>
+                    </div>
+                    <div class="bar-row">
+                        <div class="bar-label">
+                            <span>Carga del sistema</span>
+                            <span id="loadPct">0%</span>
+                        </div>
+                        <div class="bar-track"><div class="bar-fill" id="loadBar"></div></div>
+                    </div>
+                </div>
+            </section>
+
+        </aside>
+
+        <!-- ============== CENTER ============== -->
+        <section class="dash-col-center">
+            <div class="core-container">
+                <div class="core-rings">
+                    <div class="ring outer"></div>
+                    <div class="ring middle"></div>
+                    <div class="ring inner"></div>
+                    <div class="ring-tick tick-1"></div>
+                    <div class="ring-tick tick-2"></div>
+                    <div class="ring-tick tick-3"></div>
+                    <div class="ring-tick tick-4"></div>
+                    <div class="core-center" id="coreCenter">
+                        <div class="freq-bars">
+                            <span></span><span></span><span></span><span></span><span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="core-label">
+                <h2 class="core-title">A.R.E.S</h2>
+                <div class="core-status" id="coreStatus">
+                    <span class="dot-pulse"></span>
+                    <span id="coreStatusText">Escuchando…</span>
+                </div>
+            </div>
+
+            <!-- Bottom toolbar -->
+            <div class="core-toolbar">
+                <button class="tool-btn" id="btnCapture" title="Capturar imagen">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                </button>
+                <button class="tool-btn tool-btn-mic" id="btnMic" title="Toggle micrófono">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+                </button>
+                <button class="tool-btn" id="btnKeyboard" title="Mostrar teclado / chat focus">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01M6 12h.01M10 12h.01M14 12h.01M18 12h.01M7 16h10"/></svg>
+                </button>
+            </div>
+        </section>
+
+        <!-- ============== RIGHT COLUMN: CONVERSATION ============== -->
+        <aside class="dash-col-right">
+            <div class="convo-card">
+                <header class="convo-header">
+                    <h3>Conversación</h3>
+                    <div class="convo-actions">
+                        <button class="convo-btn" id="btnClear"> Vaciar</button>
+                        <button class="convo-btn" id="btnExport">⤓ Extraer</button>
+                    </div>
+                </header>
+
+                <div class="convo-stream" id="convoStream">
+                    <div class="msg msg-ares">
+                        <p>Hola, soy A.R.E.S. ¿En qué puedo asistirte?</p>
+                        <span class="msg-time" id="firstTime">—</span>
+                    </div>
+                </div>
+
+                <form class="convo-input" id="convoForm" autocomplete="off">
+                    <input type="text" id="convoInput" placeholder="Escribe un mensaje…">
+                    <button type="submit" id="convoSend">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </button>
+                </form>
+            </div>
+        </aside>
+
+    </main>
+
+    <!-- ============== DONATION MODAL ============== -->
+    <div class="modal-backdrop" id="donateModal">
+        <div class="modal-card">
+            <div class="modal-head">
+                <h2>Apoyar a A.R.E.S</h2>
+                <button class="modal-close" id="modalClose">×</button>
+            </div>
+            <p class="modal-sub">A.R.E.S es 100% gratuito. Si te resulta útil, puedes contribuir.</p>
+
+            <div class="donate-amounts">
+                <button class="amt-chip" data-amt="3">$3</button>
+                <button class="amt-chip" data-amt="5">$5</button>
+                <button class="amt-chip" data-amt="10">$10</button>
+                <button class="amt-chip" data-amt="25">$25</button>
+                <button class="amt-chip" data-amt="50">$50</button>
+            </div>
+
+            <div class="donate-grid">
+                <label>Monto
+                    <input type="number" id="donAmount" min="0.5" step="0.5" value="5">
+                </label>
+                <label>Divisa
+                    <select id="donCurrency">
+                        <option value="usd">USD</option>
+                        <option value="eur">EUR</option>
+                        <option value="mxn">MXN</option>
+                        <option value="cop">COP</option>
+                        <option value="ars">ARS</option>
+                        <option value="brl">BRL</option>
+                        <option value="gbp">GBP</option>
+                        <option value="cad">CAD</option>
+                    </select>
+                </label>
+            </div>
+
+            <button class="auth-btn auth-btn-primary modal-go" id="donGo">
+                CONTINUAR AL PAGO
+            </button>
+            <p class="donate-note" id="donNote"></p>
+        </div>
+    </div>
+
+    <script src="AresUI.js"></script>
+</body>
+</html>
